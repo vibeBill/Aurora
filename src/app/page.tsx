@@ -3,7 +3,6 @@
 import { useCallback, useState } from "react";
 import "./globals.css";
 import ReactMarkdown from "react-markdown";
-import styles from "./style.module.scss";
 
 const SearchIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
