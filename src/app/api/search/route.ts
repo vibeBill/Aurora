@@ -1,6 +1,29 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 
+// Define interfaces for the API responses
+interface GoogleSearchResult {
+  title: string;
+  link: string;
+  snippet: string;
+}
+
+interface GoogleSerperResponse {
+  organic: GoogleSearchResult[];
+}
+
+interface BingWebPage {
+  name: string;
+  url: string;
+  snippet: string;
+}
+
+interface BingSearchResponse {
+  webPages: {
+    value: BingWebPage[];
+  };
+}
+
 export async function POST(req: Request) {
   try {
     const { query, useInternet } = await req.json();
@@ -10,29 +33,28 @@ export async function POST(req: Request) {
 
     async function isUsingClash() {
       try {
-        // 使用代理请求来检测是否通过 Clash
         const response = await axios.get("http://google.com", {
           proxy: {
             host: "127.0.0.1",
             port: 7890,
           },
         });
-        console.log(response.status); // 如果请求成功，Clash 应该在工作
-        return true; // 说明通过 Clash 代理
+        console.log(response.status);
+        return true;
       } catch (error) {
         console.error("未能通过 Clash 代理：", error);
       }
-      return false; // 未通过代理
+      return false;
     }
 
     if (useInternet) {
-      const useBrowser = async () => {
+      const applyBrowser = async () => {
         const isClash = await isUsingClash();
         console.log(isClash ? "使用Clash代理" : "未使用Clash代理");
 
         if (isClash) {
           try {
-            const searchResponse = await axios.post(
+            const searchResponse = await axios.post<GoogleSerperResponse>(
               "https://google.serper.dev/search",
               { q: query, num: 5 },
               {
@@ -42,7 +64,7 @@ export async function POST(req: Request) {
                 },
               }
             );
-            searchResults = searchResponse.data.organic.map((item: any) => ({
+            searchResults = searchResponse.data.organic.map((item) => ({
               title: item.title,
               link: item.link,
               snippet: item.snippet,
@@ -53,7 +75,7 @@ export async function POST(req: Request) {
           }
         } else {
           try {
-            const searchResponse = await axios.get(
+            const searchResponse = await axios.get<BingSearchResponse>(
               "https://api.bing.microsoft.com/v7.0/custom/search",
               {
                 headers: {
@@ -66,13 +88,11 @@ export async function POST(req: Request) {
                 },
               }
             );
-            searchResults = searchResponse.data.webPages.value.map(
-              (item: any) => ({
-                title: item.name,
-                link: item.url,
-                snippet: item.snippet,
-              })
-            );
+            searchResults = searchResponse.data.webPages.value.map((item) => ({
+              title: item.name,
+              link: item.url,
+              snippet: item.snippet,
+            }));
           } catch (err) {
             console.error("Bing search error:", err);
             searchResults = [];
@@ -80,7 +100,7 @@ export async function POST(req: Request) {
         }
       };
 
-      await useBrowser();
+      await applyBrowser();
 
       searchContext = searchResults
         .map(
@@ -135,7 +155,7 @@ export async function POST(req: Request) {
 
               for (const line of lines) {
                 try {
-                  const parsed = JSON.parse(line);
+                  const parsed = JSON.parse(line) as { response: string };
                   controller.enqueue(
                     encoder.encode(
                       JSON.stringify({ type: "token", data: parsed.response }) +
@@ -172,10 +192,13 @@ export async function POST(req: Request) {
     );
 
     return response;
-  } catch (error: any) {
+  } catch (error) {
     console.error("General Error:", error);
     return NextResponse.json(
-      { error: "An error occurred", details: error.message },
+      {
+        error: "An error occurred",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }

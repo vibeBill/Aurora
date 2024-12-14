@@ -4,6 +4,12 @@ import { useCallback, useState } from "react";
 import "./globals.css";
 import ReactMarkdown from "react-markdown";
 
+interface SearchResult {
+  title: string;
+  link: string;
+  snippet: string;
+}
+
 const SearchIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
@@ -61,18 +67,22 @@ const CodeBlock = ({ children }: { children: string }) => {
   );
 };
 
+interface CodeProps {
+  children: string;
+}
+
+const components = {
+  code: ({ children }: CodeProps) => {
+    return <CodeBlock>{children}</CodeBlock>;
+  },
+};
+
 export default function Home() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
-  const [useInternet, setUseInternet] = useState(false); // New state for internet toggle
-
-  const components = {
-    code: ({ children }: { children: any }) => {
-      return <CodeBlock>{children as string}</CodeBlock>;
-    },
-  };
+  const [useInternet, setUseInternet] = useState(false);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
@@ -87,7 +97,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query, useInternet }), // Add useInternet parameter
+        body: JSON.stringify({ query, useInternet }),
       });
 
       const reader = response.body?.getReader();
@@ -102,11 +112,14 @@ export default function Home() {
 
         for (const line of lines) {
           try {
-            const data = JSON.parse(line);
+            const data = JSON.parse(line) as {
+              type: string;
+              data: SearchResult[] | string;
+            };
             if (data.type === "searchResults") {
-              setSearchResults(data.data);
+              setSearchResults(data.data as SearchResult[]);
             } else if (data.type === "token") {
-              setAnswer((prev) => prev + data.data);
+              setAnswer((prev) => prev + (data.data as string));
             }
           } catch (e) {
             console.error("Parse error:", e);
@@ -172,7 +185,7 @@ export default function Home() {
       {searchResults.length > 0 && (
         <div className="results-container">
           <h2 className="section-title">Search Results:</h2>
-          {searchResults.map((result: any, index: number) => (
+          {searchResults.map((result, index) => (
             <div key={index} className="result-card">
               <h3 className="result-title">{result.title}</h3>
               <p className="result-snippet">{result.snippet}</p>
