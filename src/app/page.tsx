@@ -135,7 +135,7 @@ export default function Home() {
 
   return (
     <main className="container">
-      <h1 className="title">Ollama Web Search</h1>
+      <h1 className="title">Aurora base on Ollama</h1>
 
       <div className="search-container">
         <input
