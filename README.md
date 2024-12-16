@@ -1,11 +1,21 @@
-这是一个 AI 网页，你可以通过此网页部署一个属于自己的 AI 网页。
+## 这是一个 AI 网页，你可以通过此网页部署一个属于自己的 AI 网页。
 
 ## Getting Started
 
 首先，你需要在本地部署一个 ollama 服务器。你可以参考[ollama](https://github.com/ollama/ollama)的文档来部署 ollama 服务器。
 
 当你部署好 ollama 服务器后，你可以通过以下命令来启动你的 AI 网页：
-
+首先，你需要安装依赖：
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+按照完依赖后，你可以通过以下命令来启动你的 AI 网页：
 ```bash
 npm run dev
 # or
