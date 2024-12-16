@@ -8,7 +8,7 @@ import {
 
 export async function isUsingClash() {
   try {
-    const response = await axios.get("http://google.com", {
+    await axios.get("http://google.com", {
       proxy: {
         host: "127.0.0.1",
         port: 7890,
