@@ -22,7 +22,9 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
   };
 
   const fetchChat = async () => {
-    const response = await fetch(`/api/chats/${chatId}`);
+    const response = await fetch(`/api/chats/${chatId}`, {
+      method: "GET",
+    });
     const data = await response.json();
     setChat(data);
   };
