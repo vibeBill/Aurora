@@ -1,5 +1,5 @@
 {
-  "name": "myai",
+  "name": "aurora",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/postgres": "^0.10.0",
     "axios": "^1.7.9",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-markdown": "^9.0.1"
+    "react-markdown": "^9.0.1",
+    "sass": "^1.83.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

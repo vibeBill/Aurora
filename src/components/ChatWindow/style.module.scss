@@ -1,0 +1,16 @@
+.chat_window {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 20px;
+
+  .messages_container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: calc(100% - 144px);
+    overflow: auto;
+  }
+}

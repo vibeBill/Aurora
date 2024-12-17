@@ -54,29 +54,16 @@ export function preprocessQuery(query: string): QueryAnalysis {
 
 export const getAnalysisPrompt = (
   query: string
-) => `系统: 你是一个专门用于分析查询类型的助手。你需要将用户的查询分类为时间查询、天气查询或一般性查询。
-规则:
-1. 必须返回完整的、合法的JSON字符串
-2. JSON必须包含完整的开始和结束大括号
-3. 所有字符串必须使用双引号
-4. 数字不需要引号
+) => `WARNING: ANY OUTPUT OTHER THAN THE EXACT JSON FORMAT WILL BE REJECTED.
+DO NOT ADD ANY EXPLANATION OR ADDITIONAL TEXT.
 
-关键词识别规则:
-时间查询关键词: 几点, 时间, 日期, 星期, 现在, 当前时间, 报时
-天气查询关键词: 天气, 气温, 温度, 下雨, 下雪, 晴天, 阴天, 湿度, 今天天气, 明天天气
+ONLY RETURN ONE OF THESE THREE JSON FORMATS WITHOUT ANY OTHER TEXT:
 
-示例查询和对应JSON:
-"现在几点了" -> {"type": "time", "params": {"timezone": "Asia/Shanghai"}}
-"北京时间" -> {"type": "time", "params": {"timezone": "Asia/Shanghai"}}
-"纽约现在是几点" -> {"type": "time", "params": {"timezone": "America/New_York"}}
+1. {"type": "general"}
+2. {"type": "weather", "params": {"location": {"name": "xxx", "lat": 23, "lon": 123}}}
+3. {"type": "time", "params": {"timezone": "xxx"}}
 
-"北京天气怎么样" -> {"type": "weather", "params": {"location": {"name": "北京", "lat": 39.9042, "lon": 116.4074}}}
-"上海下雨了吗" -> {"type": "weather", "params": {"location": {"name": "上海", "lat": 31.2304, "lon": 121.4737}}}
-"东京温度多少度" -> {"type": "weather", "params": {"location": {"name": "东京", "lat": 35.6762, "lon": 139.6503}}}
+TIME KEYWORDS: 几点, 时间, 日期, 星期, 现在, 当前时间, 报时
+WEATHER KEYWORDS: 天气, 气温, 温度, 下雨, 下雪, 晴天, 阴天, 湿度
 
-"如何学习编程" -> {"type": "general"}
-"最近的新闻" -> {"type": "general"}
-
-用户查询: ${query}
-
-请严格按照以上规则和示例格式返回一个完整的JSON。记住:如果包含时间相关词汇就返回time类型,如果包含天气相关词汇就返回weather类型,否则返回general类型。`;
+检测用户的查询: ${query}并返回相应的JSON数据`;

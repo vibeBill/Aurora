@@ -7,15 +7,22 @@ import {
   searchBing,
 } from "@/services/searchService";
 import { getWeather } from "@/services/weatherService";
-import { QueryAnalysis, SearchResult } from "@/types";
+import { Message, QueryAnalysis, SearchResult } from "@/types";
 
 export async function POST(req: Request) {
   try {
-    const { query, useInternet } = await req.json();
+    const { query, useInternet, chatHistory } = await req.json();
 
     let searchResults: SearchResult[] = [];
     let searchContext = "";
     let additionalContext = "";
+
+    const conversationHistory = chatHistory
+      .map(
+        (msg: Message) =>
+          `${msg.role === "user" ? "Human" : "Assistant"}: ${msg.content}`
+      )
+      .join("\n");
 
     // 查询分析
     let queryAnalysis: QueryAnalysis = preprocessQuery(query);
@@ -31,6 +38,7 @@ export async function POST(req: Request) {
               model: "llama3.2",
               prompt: getAnalysisPrompt(query),
               stream: false,
+              temperature: 0.1,
             }),
           }
         );
@@ -108,8 +116,8 @@ export async function POST(req: Request) {
                 body: JSON.stringify({
                   model: "llama3.2",
                   prompt: useInternet
-                    ? `通过查询到的信息:\n\n${additionalContext}以及${searchContext}\n\n回答用户的问题: ${query}\n请提供一个专业的回答。`
-                    : `通过查询到的信息:\n\n${additionalContext}\n\n回答用户的问题:${query}\n请提供一个专业的回答。`,
+                    ? `你的名字叫Aurora，是一个专业的AI机器人，以下是之前的对话历史:\n${conversationHistory}\n\n通过查询到的信息:\n\n${additionalContext}以及${searchContext}\n\n回答用户的最新问题: ${query}\n请提供一个专业的回答。`
+                    : `你的名字叫Aurora，是一个专业的AI机器人，以下是之前的对话历史:\n${conversationHistory}\n\n通过查询到的信息:\n\n${additionalContext}\n\n回答用户的最新问题:${query}\n请提供一个专业的回答。`,
                   stream: true,
                 }),
               }

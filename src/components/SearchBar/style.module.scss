@@ -1,0 +1,107 @@
+.search_container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  gap: 10px;
+  padding: 10px 20px;
+  .search_input {
+    flex: 1;
+    padding: 10px;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+  }
+
+  .search_controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .internet_toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .icon_container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+      input[type="checkbox"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        outline: none;
+        &:checked {
+          border-color: #0070f3;
+          background-color: #0070f3;
+          & + .icon-container svg {
+            fill: white;
+          }
+        }
+        &:not(:checked) + .icon-container svg {
+          fill: #666;
+        }
+      }
+      .toggle_container {
+        position: relative;
+        width: 24px;
+        height: 24px;
+        &:hover {
+          .tag {
+            display: flex;
+          }
+        }
+        .tag {
+          padding: 4px 8px;
+          background-color: #0070f3;
+          color: white;
+          border-radius: 999px;
+          font-size: 12px;
+          position: absolute;
+          top: 0;
+          right: -72px;
+          display: none;
+        }
+      }
+    }
+    .search_button {
+      width: 44px;
+      height: 44px;
+      background-color: #0070f3;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      &:disabled {
+        background-color: #99c5ff;
+        cursor: not-allowed;
+      }
+      &:hover:not(:disabled) {
+        background-color: #0051b3;
+      }
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
