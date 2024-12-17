@@ -9,8 +9,15 @@ export async function GET() {
       ORDER BY created_at DESC
     `;
     return NextResponse.json(rows);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    // Narrow the error to an instance of Error
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { error: "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }
 
@@ -26,7 +33,14 @@ export async function POST() {
     `;
 
     return NextResponse.json(rows[0]);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    // Narrow the error to an instance of Error
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(
+      { error: "An unknown error occurred" },
+      { status: 500 }
+    );
   }
 }
