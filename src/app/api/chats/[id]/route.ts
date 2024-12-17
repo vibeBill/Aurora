@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const { rows } = await sql`
       SELECT c.*, m.id as message_id, m.content, m.role, m.timestamp
       FROM chats c
@@ -39,10 +39,10 @@ export async function GET(
 
 export async function POST(
   request: Request,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await params;
     const message: Message = await request.json();
 
     // 确保timestamp是有效的日期
