@@ -1,5 +1,4 @@
 // components/Sidebar.tsx
-import { useEffect, useState } from "react";
 import { Chat } from "@/types";
 import styles from "./style.module.scss";
 
