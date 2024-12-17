@@ -21,14 +21,6 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    fetchChat();
-  }, [chatId]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [chat?.messages]);
-
   const fetchChat = async () => {
     const response = await fetch(`/api/chats/${chatId}`);
     const data = await response.json();
@@ -141,6 +133,14 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchChat();
+  }, [chatId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat?.messages]);
 
   if (!chat) return <div>Loading...</div>;
 
