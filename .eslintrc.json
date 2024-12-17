@@ -1,0 +1,573 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "ignorePatterns": ["node_modules/", ".next/", "public/"],
+  "rules": {
+    /**
+     * for convert
+     */
+    "@next/next/no-sync-scripts": "off",
+    /**
+     * 数组的方法除了 forEach 之外，回调函数必须有返回值
+     */
+    "array-callback-return": "error",
+    /**
+     * constructor 中必须有 super
+     */
+    "constructor-super": "error",
+    /**
+     * switch 语句中的 default 必须在最后
+     */
+    "default-case-last": "error",
+    /**
+     * 必须使用 === 或 !==，禁止使用 == 或 !=
+     */
+    "eqeqeq": ["error", "always"],
+    /**
+     * 禁止方向错误的 for 循环
+     */
+    "for-direction": "error",
+    /**
+     * getter 必须有返回值，并且禁止返回空
+     */
+    "getter-return": "error",
+    /**
+     * setter 和 getter 必须写在一起
+     */
+    "grouped-accessor-pairs": "error",
+    /**
+     * for in 内部必须有 hasOwnProperty
+     */
+    "guard-for-in": "error",
+    /**
+     * 代码块嵌套的深度禁止超过 5 层
+     */
+    "max-depth": "off",
+    /**
+     * 回调函数嵌套禁止超过 4 层
+     * @reason 多了请用 async await 替代
+     */
+    "max-nested-callbacks": ["error", 4],
+    /**
+     * 禁止使用 alert
+     */
+    "no-alert": "off",
+    /**
+     * 禁止使用位运算
+     */
+    "no-bitwise": "off",
+    /**
+     * 禁止使用 caller 或 callee
+     * @reason 它们是已废弃的语法
+     */
+    "no-caller": "error",
+    /**
+     * switch 的 case 内有变量定义的时候，必须使用大括号将 case 内变成一个代码块
+     */
+    "no-case-declarations": "error",
+    /**
+     * 禁止对已定义的 class 重新赋值
+     */
+    "no-class-assign": "error",
+    /**
+     * 禁止与负零进行比较
+     */
+    "no-compare-neg-zero": "error",
+    /**
+     * 禁止在测试表达式中使用赋值语句，除非这个赋值语句被括号包起来了
+     */
+    "no-cond-assign": ["error", "except-parens"],
+    /**
+     * 禁止对使用 const 定义的常量重新赋值
+     */
+    "no-const-assign": "error",
+    /**
+     * 禁止将常量作为分支条件判断中的测试表达式，但允许作为循环条件判断中的测试表达式
+     */
+    "no-constant-condition": [
+      "error",
+      {
+        "checkLoops": false
+      }
+    ],
+    /**
+     * 禁止在构造函数中返回值
+     */
+    "no-constructor-return": "error",
+    /**
+     * 禁止使用 debugger
+     */
+    "no-debugger": "error",
+    /**
+     * 禁止重复定义类的成员
+     */
+    "no-dupe-class-members": "error",
+    /**
+     * 禁止 if else 的条件判断中出现重复的条件
+     */
+    "no-dupe-else-if": "error",
+    /**
+     * 禁止在对象字面量中出现重复的键名
+     */
+    "no-dupe-keys": "error",
+    /**
+     * 禁止在 switch 语句中出现重复测试表达式的 case
+     */
+    "no-duplicate-case": "error",
+    /**
+     * 禁止重复导入模块
+     */
+    "no-duplicate-imports": "error",
+    /**
+     * 禁止在 else 内使用 return，必须改为提前结束
+     * @reason else 中使用 return 可以使代码结构更清晰
+     */
+    "no-else-return": "off",
+    /**
+     * 禁止出现空代码块，允许 catch 为空代码块
+     */
+    "no-empty": ["error"],
+    /**
+     * 禁止在正则表达式中使用空的字符集 []
+     */
+    "no-empty-character-class": "error",
+    /**
+     * 禁止解构赋值中出现空 {} 或 []
+     */
+    "no-empty-pattern": "error",
+    /**
+     * 禁止使用 foo == null，必须使用 foo === null
+     */
+    "no-eq-null": "error",
+    /**
+     * 禁止使用 eval
+     */
+    "no-eval": "error",
+    /**
+     * 禁止将 catch 的第一个参数 error 重新赋值
+     */
+    "no-ex-assign": "error",
+    /**
+     * 禁止修改原生对象
+     * @reason 修改原生对象可能会与将来版本的 js 冲突
+     */
+    "no-extend-native": "error",
+    /**
+     * 禁止出现没必要的 bind
+     */
+    "no-extra-bind": "error",
+    /**
+     * 禁止不必要的布尔类型转换
+     */
+    "no-extra-boolean-cast": "error",
+    /**
+     * switch 的 case 内必须有 break, return 或 throw，空的 case 除外
+     */
+    "no-fallthrough": "error",
+    /**
+     * 禁止将一个函数声明重新赋值
+     */
+    "no-func-assign": "error",
+    /**
+     * 禁止对全局变量赋值
+     */
+    "no-global-assign": "error",
+    /**
+     * 禁止使用 ~+ 等难以理解的类型转换，仅允许使用 !!  -- 是否需要禁止？
+     */
+    "no-implicit-coercion": [
+      "error",
+      {
+        "allow": ["!!"]
+      }
+    ],
+    /**
+     * 禁止在 setTimeout 或 setInterval 中传入字符串
+     */
+    "no-implied-eval": "error",
+    /**
+     * 禁止对导入的模块进行赋值
+     */
+    "no-import-assign": "error",
+    /**
+     * 禁止在 if 代码块内出现函数声明
+     */
+    "no-inner-declarations": ["error", "both"],
+    /**
+     * 禁止在 RegExp 构造函数中出现非法的正则表达式
+     */
+    "no-invalid-regexp": "error",
+    /**
+     * 禁止使用 __iterator__
+     * @reason __iterator__ 是一个已废弃的属性
+     * 使用 [Symbol.iterator] 替代它
+     */
+    "no-iterator": "error",
+    /**
+     * 禁止使用 label
+     */
+    "no-labels": "error",
+    /**
+     * 禁止使用没必要的 {} 作为代码块
+     */
+    "no-lone-blocks": "error",
+    /**
+     * 禁止使用超出 js 精度范围的数字
+     */
+    "no-loss-of-precision": "error",
+    /**
+     * 禁止使用 magic numbers  -- 这个是否要开启？
+     */
+    "no-magic-numbers": "off",
+    /**
+     * 禁止使用 \ 来换行字符串
+     */
+    "no-multi-str": "error",
+    /**
+     * 禁止直接 new 一个类而不赋值
+     */
+    "no-new": "off",
+    /**
+     * 禁止使用 new Function
+     * @reason 这和 eval 是等价的
+     */
+    "no-new-func": "error",
+    /**
+     * 禁止直接 new Object
+     */
+    "no-new-object": "error",
+    /**
+     * 禁止使用 new 来生成 Symbol
+     */
+    "no-new-symbol": "error",
+    /**
+     * 禁止使用 new 来生成 String, Number 或 Boolean
+     */
+    "no-new-wrappers": "error",
+    /**
+     * 禁止将 Math, JSON 或 Reflect 直接作为函数调用
+     */
+    "no-obj-calls": "error",
+    /**
+     * 禁止对函数的参数重新赋值
+     */
+    "no-param-reassign": "error",
+    /**
+     * 禁止在 Promise 的回调函数中直接 return
+     */
+    // "no-promise-executor-return": "error",
+    /**
+     * 禁止使用 __proto__
+     * @reason __proto__ 是已废弃的语法
+     */
+    "no-proto": "error",
+    /**
+     * 禁止在 return 语句里赋值
+     */
+    "no-return-assign": ["error", "always"],
+    /**
+     * 禁止将自己赋值给自己
+     */
+    "no-self-assign": "error",
+    /**
+     * 禁止将自己与自己比较
+     */
+    "no-self-compare": "error",
+    /**
+     * 禁止使用逗号操作符
+     */
+    "no-sequences": "error",
+    /**
+     * 禁止 setter 有返回值
+     */
+    "no-setter-return": "error",
+    /**
+     * 禁止使用保留字作为变量名
+     */
+    "no-shadow-restricted-names": "error",
+    /**
+     * 禁止在数组中出现连续的逗号
+     */
+    "no-sparse-arrays": "error",
+    /**
+     * 禁止在 super 被调用之前使用 this 或 super
+     */
+    "no-this-before-super": "error",
+    /**
+     * 禁止 throw 字面量，必须 throw 一个 Error 对象
+     */
+    "no-throw-literal": "error",
+    /**
+     * 禁止使用未定义的变量
+     */
+    "no-undef": "off",
+    /**
+     * 禁止将 undefined 赋值给变量
+     */
+    "no-undef-init": "error",
+    /**
+     * 循环内必须对循环条件中的变量有修改
+     */
+    "no-unmodified-loop-condition": "error",
+    /**
+     * 禁止在 return, throw, break 或 continue 之后还有代码
+     */
+    "no-unreachable": "error",
+    /**
+     * 禁止在第一轮循环时就一定会退出循环的情况出现
+     */
+    "no-unreachable-loop": "error",
+    /**
+     * 禁止在 finally 中出现 return, throw, break 或 continue
+     * @reason finally 中的语句会在 try 之前执行
+     */
+    "no-unsafe-finally": "error",
+    /**
+     * 禁止在 in 或 instanceof 操作符的左侧变量前使用感叹号
+     */
+    "no-unsafe-negation": "error",
+    /**
+     * 禁止使用不安全的 optional chaining
+     */
+    "no-unsafe-optional-chaining": "error",
+    /**
+     * 变量必须先定义后使用(存疑)
+     */
+    "no-use-before-define": [
+      "off",
+      {
+        "variables": false,
+        "functions": false,
+        "classes": false
+      }
+    ],
+    /**
+     * 禁止出现没必要的 call 或 apply
+     */
+    "no-useless-call": "error",
+    /**
+     * 禁止在 catch 中仅仅只是把错误 throw 出去
+     * @reason 这样的 catch 是没有意义的，等价于直接执行 try 里的代码
+     */
+    "no-useless-catch": "error",
+    /**
+     * 禁止出现没必要的计算键名
+     */
+    "no-useless-computed-key": "error",
+    /**
+     * 禁止出现没必要的字符串连接
+     */
+    "no-useless-concat": "error",
+    /**
+     * 禁止出现没必要的 constructor
+     */
+    "no-useless-constructor": "error",
+    /**
+     * 禁止解构赋值时出现同样名字的的重命名，比如 let { foo: foo } = bar;
+     */
+    "no-useless-rename": "error",
+    /**
+     * 禁止使用 var
+     */
+    "no-var": "error",
+    /**
+     * 禁止使用 void
+     */
+    "no-void": "error",
+    /**
+     * 回调函数必须使用箭头函数
+     */
+    "prefer-arrow-callback": "error",
+    /**
+     * parseInt 必须传入第二个参数
+     */
+    "radix": "error",
+    /**
+     * generator 函数内必须有 yield
+     */
+    "require-yield": "error",
+    /**
+     * 创建 Symbol 时必须传入参数
+     */
+    "symbol-description": "error",
+    /**
+     * 必须使用 isNaN(foo) 而不是 foo === NaN
+     */
+    "use-isnan": "error",
+    /**
+     * typeof 表达式比较的对象必须是 'undefined', 'object', 'boolean', 'number', 'string', 'function', 'symbol', 或 'bigint'
+     */
+    "valid-typeof": "error",
+    /**
+     * 必须使用 if (foo === 5) 而不是 if (5 === foo)
+     */
+    "yoda": [
+      "error",
+      "never",
+      {
+        "onlyEquality": true
+      }
+    ],
+    /**
+     * 禁止 jsx 中使用无用的引号
+     */
+    "react/jsx-curly-brace-presence": ["error", "never"],
+    /**
+     * 必须使用 <></> 而不是 React.Fragment
+     */
+    "react/jsx-fragments": ["error", "syntax"],
+    /**
+     * 数组中的 jsx 必须有 key
+     */
+    "react/jsx-key": [
+      "error",
+      {
+        "checkFragmentShorthand": true
+      }
+    ],
+    /**
+     * 禁止在 jsx 中使用像注释的字符串
+     */
+    "react/jsx-no-comment-textnodes": "error",
+    /**
+     * 禁止出现重复的 props
+     */
+    "react/jsx-no-duplicate-props": "error",
+    /**
+     * 禁止出现 href="javascript:void(0)"
+     * @reason React 已经有 warning 了，并且会在将来禁止此类属性值
+     * todo: change off to error
+     */
+    "react/jsx-no-script-url": "off",
+    /**
+     * 禁止使用未定义的组件
+     */
+    "react/jsx-no-undef": "error",
+    /**
+     * 组件的名称必须符合 PascalCase
+     */
+    "react/jsx-pascal-case": "error",
+    /**
+     * 修复 React 被误报为未使用的变量的问题（仅在开启 no-unused-vars 时有效）
+     */
+    "react/jsx-uses-react": "error",
+    /**
+     * 修复 no-unused-vars 不检查 jsx 的问题
+     */
+    "react/jsx-uses-vars": "error",
+    /**
+     * 禁止将 children 作为一个 prop
+     */
+    "react/no-children-prop": "error",
+    /**
+     * 禁止在使用了 dangerouslySetInnerHTML 的组件内添加 children
+     */
+    "react/no-danger-with-children": "error",
+    /**
+     * 禁止使用已废弃的 api
+     */
+    "react/no-deprecated": "error",
+    /**
+     * 禁止在 componentDidUpdate 里使用 setState
+     */
+    "react/no-did-update-set-state": "error",
+    /**
+     * 禁止直接修改 this.state
+     */
+    "react/no-direct-mutation-state": "error",
+    /**
+     * 禁止使用 findDOMNode
+     */
+    "react/no-find-dom-node": "error",
+    /**
+     * 禁止使用 isMounted
+     * @reason 它是已废弃的语法
+     */
+    "react/no-is-mounted": "error",
+    /**
+     * 禁止在 React.PureComponent 中使用 shouldComponentUpdate
+     */
+    "react/no-redundant-should-component-update": "error",
+    /**
+     * 禁止使用 ReactDOM.render 的返回值
+     */
+    "react/no-render-return-value": "error",
+    /**
+     * 禁止使用 setState  -- 这个是否开启存疑，理论上应该是可以开error的
+     */
+    "react/no-set-state": "off",
+    /**
+     * 禁止使用字符串 ref
+     */
+    "react/no-string-refs": "error",
+    /**
+     * 禁止在函数组件中使用 this
+     */
+    "react/no-this-in-sfc": "error",
+    /**
+     * 禁止组件的属性或生命周期大小写错误
+     */
+    "react/no-typos": "error",
+    /**
+     * 禁止在组件的内部存在未转义的 >, ", ' 或 }
+     */
+    "react/no-unescaped-entities": "error",
+    /**
+     * 禁止出现 HTML 中的属性，如 class
+     */
+    "react/no-unknown-property": "error",
+    /**
+     * 禁止使用不安全的生命周期方法 componentWillMount, componentWillReceiveProps, componentWillUpdate
+     */
+    "react/no-unsafe": [
+      "error",
+      {
+        "checkAliases": true
+      }
+    ],
+    /**
+     * 必须使用 Class 的形式创建组件
+     */
+    "react/prefer-es6-class": ["error", "always"],
+    /**
+     * render 方法中必须有返回值
+     */
+    "react/require-render-return": "error",
+    /**
+     * 组件内没有 children 时，必须使用自闭和写法
+     */
+    // "react/self-closing-comp": "error",
+    /**
+     * 组件内方法必须按照一定规则排序
+     */
+    "react/sort-comp": "error",
+    /**
+     * 类的静态属性必须使用 static 关键字定义
+     */
+    "react/static-property-placement": "error",
+    /**
+     * style 属性的取值必须是 object
+     */
+    "react/style-prop-object": "error",
+    /**
+     * img, br 标签中禁止有 children
+     */
+    "react/void-dom-elements-no-children": "error",
+    /**
+     * 禁止非顶层使用hooks
+     *
+     */
+    "react-hooks/rules-of-hooks": "off",
+    /**
+     * hooks中依赖的变量必须写到加入到依赖项
+     * @reason 防止出现陈旧闭包的问题
+     * @reason todo: change off to error
+     */
+    "react-hooks/exhaustive-deps": "off",
+    "react/display-name": "off"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  }
+}
