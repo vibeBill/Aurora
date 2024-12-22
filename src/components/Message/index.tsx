@@ -38,9 +38,9 @@ const MessageComponent = ({ message }: MessageProps) => {
         {isThinking ? (
           <div className={styles.thinking}>
             ✨ Aurora正在思考
-            <span className={styles.dot}>•</span>
-            <span className={styles.dot}>•</span>
-            <span className={styles.dot}>•</span>
+            <span className={styles.dot}></span>
+            <span className={styles.dot}></span>
+            <span className={styles.dot}></span>
           </div>
         ) : (
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>

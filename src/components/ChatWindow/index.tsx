@@ -1,5 +1,5 @@
 // components/ChatWindow.tsx
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Chat, Message } from "@/types";
 import MessageComponent from "../Message";
 import SearchBar from "../SearchBar";
@@ -21,13 +21,13 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const fetchChat = async () => {
+  const fetchChat = useCallback(async () => {
     const response = await fetch(`/api/chats/${chatId}`, {
       method: "GET",
     });
     const data = await response.json();
     setChat(data);
-  };
+  }, [chatId]);
 
   const handleSearch = async () => {
     if (!query.trim()) return;
