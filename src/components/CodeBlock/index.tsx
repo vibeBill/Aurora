@@ -36,12 +36,29 @@ const CopyButton = ({ text }: { text: string }) => {
   );
 };
 
-const CodeBlock = ({ children }: { children: string }) => {
+interface CodeBlockProps {
+  children: string;
+  inline?: boolean;
+  className?: string;
+}
+
+const CodeBlock = ({
+  children,
+  inline = false,
+  className = "",
+}: CodeBlockProps) => {
+  // 如果是内联代码(inline=true)，则视为变量
+  const isVariable = inline;
+
+  if (isVariable) {
+    return <code className={styles.inline_code}>{children}</code>;
+  }
+
   return (
     <div className={styles.code_block_wrapper}>
       <CopyButton text={children} />
       <pre>
-        <code>{children}</code>
+        <code className={className}>{children}</code>
       </pre>
     </div>
   );

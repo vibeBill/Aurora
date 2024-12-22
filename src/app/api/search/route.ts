@@ -116,8 +116,8 @@ export async function POST(req: Request) {
                 body: JSON.stringify({
                   model: "llama3.2",
                   prompt: useInternet
-                    ? `你的名字叫Aurora，是一个专业的AI机器人，以下是之前的对话历史:\n${conversationHistory}\n\n通过查询到的信息:\n\n${additionalContext}以及${searchContext}\n\n回答用户的最新问题: ${query}\n请提供一个专业的回答。`
-                    : `你的名字叫Aurora，是一个专业的AI机器人，以下是之前的对话历史:\n${conversationHistory}\n\n通过查询到的信息:\n\n${additionalContext}\n\n回答用户的最新问题:${query}\n请提供一个专业的回答。`,
+                    ? `你的名字叫Aurora，是一个专业的AI机器人\n\n根据之前的对话历史:\n${conversationHistory}\n\n注意：对话历史只是一个参考，你的重点还是要在回答用户的问题上\n\n通过查询到的信息:\n\n${additionalContext}以及${searchContext}\n\n回答用户的最新问题: ${query}\n请提供一个专业的回答。`
+                    : `你的名字叫Aurora，是一个专业的AI机器人\n\n根据之前的对话历史:\n${conversationHistory}\n\n注意：对话历史只是一个参考，你的重点还是要在回答用户的问题上\n\n通过查询到的信息:\n\n${additionalContext}\n\n回答用户的最新问题:${query}\n请提供一个专业的回答。`,
                   stream: true,
                 }),
               }

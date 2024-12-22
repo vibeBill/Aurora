@@ -44,6 +44,15 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
         timestamp: new Date(),
       };
 
+      const assistantMessageId = crypto.randomUUID();
+      // 创建思考状态消息
+      const thinkingMessage: Message = {
+        id: assistantMessageId,
+        content: "thinking",
+        role: "assistant",
+        timestamp: new Date(),
+      };
+
       const processedHistory = limitChatHistory(chat?.messages || []).map(
         (msg) => ({
           ...msg,
@@ -61,7 +70,7 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
         prev
           ? {
               ...prev,
-              messages: [...prev.messages, userMessage],
+              messages: [...prev.messages, userMessage, thinkingMessage],
             }
           : null
       );
@@ -80,7 +89,6 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
       if (!reader) throw new Error("No reader available");
 
       let assistantMessage = "";
-      const assistantMessageId = crypto.randomUUID();
 
       while (true) {
         const { done, value } = await reader.read();

@@ -13,6 +13,41 @@
   }
 
   .message_content {
+    .thinking {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 8px 0;
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        background: currentColor;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0.4;
+
+        @for $i from 1 through 3 {
+          &:nth-child(#{$i}) {
+            animation: pulse 1s ease-in-out infinite;
+            animation-delay: #{$i * 0.2}s;
+          }
+        }
+      }
+    }
+
+    @keyframes pulse {
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+    }
+
     h1,
     h2,
     h3,
