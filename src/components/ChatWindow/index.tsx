@@ -55,7 +55,7 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
 
       const processedHistory = limitChatHistory(chat?.messages || []).map(
         (msg) => ({
-          ...msg,
+          role: msg.role,
           content: truncateMessage(msg.content),
         })
       );
@@ -82,6 +82,7 @@ const ChatWindow = ({ chatId }: ChatWindowProps) => {
           query: userQuery,
           useInternet,
           chatHistory: processedHistory,
+          mode: chat?.mode,
         }),
       });
 

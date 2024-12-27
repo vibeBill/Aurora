@@ -2,7 +2,7 @@ import { Message } from "@/types";
 
 export function limitChatHistory(
   messages: Message[],
-  maxMessages: number = 10
+  maxMessages: number = 20
 ) {
   return messages.slice(-maxMessages);
 }

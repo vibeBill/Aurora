@@ -21,20 +21,20 @@ export async function GET() {
   }
 }
 
-export async function POST() {
+export async function POST(request: Request) {
   try {
+    const { mode } = await request.json();
     const id = crypto.randomUUID();
     const title = `New Chat ${new Date().toLocaleString()}`;
 
     const { rows } = await sql`
-      INSERT INTO chats (id, title, created_at)
-      VALUES (${id}, ${title}, NOW())
+      INSERT INTO chats (id, title, mode, created_at)
+      VALUES (${id}, ${title}, ${mode}, NOW())
       RETURNING *
     `;
 
     return NextResponse.json(rows[0]);
   } catch (error: unknown) {
-    // Narrow the error to an instance of Error
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }

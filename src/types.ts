@@ -52,7 +52,7 @@ export interface SearchResult {
 export interface Message {
   id: string;
   content: string;
-  role: "user" | "assistant";
+  role: "system" | "user" | "assistant";
   timestamp: Date;
 }
 
@@ -61,4 +61,5 @@ export interface Chat {
   title: string;
   messages: Message[];
   created_at: Date;
+  mode: "chat" | "generate";
 }

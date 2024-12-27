@@ -24,10 +24,14 @@ export default function Home() {
     }
   };
 
-  const createNewChat = async () => {
+  const createNewChat = async (mode: "chat" | "generate") => {
     try {
       const response = await fetch("/api/chats", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ mode }),
       });
       const chat = await response.json();
 

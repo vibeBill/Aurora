@@ -21,6 +21,7 @@ export async function GET(
       id: rows[0].id,
       title: rows[0].title,
       createdAt: rows[0].created_at,
+      mode: rows[0].mode,
       messages: rows
         .map((row) => ({
           id: row.message_id,
