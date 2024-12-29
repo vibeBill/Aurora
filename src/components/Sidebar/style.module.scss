@@ -1,10 +1,98 @@
 .sidebar {
-  width: 300px;
+  max-width: 300px;
   background-color: #f5f5f5;
   padding: 20px;
   border-right: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+
+  @include touch {
+    &.collapsed {
+      max-width: 60px;
+      padding: 10px;
+
+      .new_chat_button {
+        width: 40px;
+        padding: 8px;
+
+        span {
+          display: none;
+        }
+      }
+
+      .chat_list {
+        .chat_item {
+          padding: 8px;
+
+          .chat_title,
+          .chat_date {
+            display: none;
+          }
+
+          .chat_icon {
+            margin: 0;
+          }
+        }
+      }
+
+      .burger {
+        .line {
+          &:nth-child(1) {
+            transform: translate(0, -9px) rotate(0deg);
+          }
+          &:nth-child(2) {
+            transform: rotate(0deg);
+          }
+          &:nth-child(3) {
+            transform: translate(0, 9px) rotate(0deg);
+          }
+        }
+      }
+    }
+  }
+
+  .burger {
+    display: none;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    position: relative;
+
+    @include touch {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .line {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      height: 2px;
+      background-color: #333;
+      transition: all 0.3s ease;
+
+      &:nth-child(1) {
+        transform: translate(9px, 0) rotate(90deg);
+      }
+
+      &:nth-child(2) {
+        transform: rotate(90deg);
+      }
+
+      &:nth-child(3) {
+        transform: translate(-9px, 0) rotate(90deg);
+      }
+    }
+  }
 
   .new_chat_button {
     padding: 10px 20px;
@@ -13,9 +101,19 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
     &:hover {
       background-color: #0056b3;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
     }
   }
 
@@ -30,12 +128,24 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
       &:hover {
         background-color: #e0e0e0;
       }
+
       &.active {
         background-color: #e0e0e0;
       }
+
+      .chat_icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+      }
+
       .chat_title {
         display: block;
         font-weight: 500;

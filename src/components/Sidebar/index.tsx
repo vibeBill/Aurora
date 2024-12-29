@@ -3,6 +3,7 @@ import { Chat } from "@/types";
 import styles from "./style.module.scss";
 import { useState } from "react";
 import Image from "next/image";
+import classNames from "classnames";
 
 interface SidebarProps {
   activeChat: string | null;
@@ -18,35 +19,67 @@ const Sidebar = ({
   onNewChat,
 }: SidebarProps) => {
   const [showModal, setShowModal] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const handleModeSelect = (mode: "chat" | "generate") => {
     onNewChat(mode);
     setShowModal(false);
   };
 
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className={styles.sidebar}>
+    <div
+      className={classNames(styles.sidebar, {
+        [styles.collapsed]: isCollapsed,
+      })}
+    >
+      <div className={styles.burger} onClick={toggleSidebar}>
+        <div className={styles.line}></div>
+        <div className={styles.line}></div>
+        <div className={styles.line}></div>
+      </div>
+
       <button
         onClick={() => setShowModal(true)}
         className={styles.new_chat_button}
       >
-        新建对话
+        <Image
+          src="/plus.svg"
+          alt="New"
+          width={20}
+          height={20}
+          className={styles.icon}
+        />
+        <span>新建对话</span>
       </button>
+
       <div className={styles.chat_list}>
         {chats.map((chat) => (
           <div
             key={chat.id}
-            className={`${styles.chat_item} ${
-              chat.id === activeChat ? styles.active : ""
-            }`}
+            className={classNames(styles.chat_item, {
+              [styles.active]: chat.id === activeChat,
+            })}
             onClick={() => setActiveChat(chat.id)}
           >
-            <span className={styles.chat_title}>
-              {chat.title} ({chat.mode})
-            </span>
-            <span className={styles.chat_date}>
-              {new Date(chat.created_at).toLocaleDateString()}
-            </span>
+            <Image
+              src={chat.mode === "chat" ? "/chat.svg" : "/generate.svg"}
+              alt={chat.mode}
+              width={20}
+              height={20}
+              className={styles.chat_icon}
+            />
+            <div>
+              <span className={styles.chat_title}>
+                {chat.title} ({chat.mode})
+              </span>
+              <span className={styles.chat_date}>
+                {new Date(chat.created_at).toLocaleDateString()}
+              </span>
+            </div>
           </div>
         ))}
       </div>

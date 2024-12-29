@@ -19,9 +19,10 @@ body {
 }
 
 .main-content {
-  width: 100%;
+  width: calc(100% - 60px);
   height: 100%;
   padding: 20px;
+  margin-left: 60px;
 }
 
 .welcome-message {
