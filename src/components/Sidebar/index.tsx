@@ -19,7 +19,7 @@ const Sidebar = ({
   onNewChat,
 }: SidebarProps) => {
   const [showModal, setShowModal] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const handleModeSelect = (mode: "chat" | "generate") => {
     onNewChat(mode);
