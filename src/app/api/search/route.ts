@@ -85,7 +85,7 @@ export async function POST(req: Request) {
 
           try {
             const aiResponse = await fetch(
-              `http://127.0.0.1:11434/api/${endpoint}`,
+              `${process.env.LLAMA_ROUTE}/api/${endpoint}`,
               {
                 method: "POST",
                 headers: {
