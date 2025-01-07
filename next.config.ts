@@ -18,19 +18,6 @@ const nextConfig: NextConfig = {
       @use '@/styles/tokens' as *;
     `,
   },
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value: "connect-src 'self' https://bill-aurora.ip-ddns.com",
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default nextConfig;
